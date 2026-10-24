@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel García Marcos | Poesía y Literatura</title>
+    <!-- Fuente elegante de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f0e0d;
+            --surface-color: #1a1816;
+            --text-color: #e6e2dd;
+            --text-muted: #9e958d;
+            --accent-color: #d4af37;
+            --border-color: #2e2a25;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Cabecera ultrafina y compacta para móvil */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(15, 14, 13, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 4%;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text-color);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 5% 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2.5rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.3rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            color: #fff;
+            line-height: 1.15;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.8rem;
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 2px;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        /* Estilos del acertijo */
+        .riddle-box {
+            margin-top: 1.2rem;
+            max-width: 380px;
+        }
+
+        .riddle-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.6rem;
+        }
+
+        .riddle-input-group input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            color: var(--text-color);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .riddle-input-group input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Caja misteriosa adaptativa con signo de interrogación */
+        .mystery-cover {
+            width: 100%;
+            max-width: 260px;
+            height: 380px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .mystery-cover span {
+            font-size: 4.5rem;
+            color: var(--accent-color);
+            font-family: 'Cormorant Garamond', serif;
+            line-height: 1;
+        }
+
+        .mystery-cover p {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .revealed-image {
+            width: 100%;
+            max-width: 260px;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            display: block;
+            margin: 0 auto;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .book-link img {
+            width: 100%;
+            max-width: 240px;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .book-link img:hover {
+            transform: scale(1.02);
+            border-color: var(--accent-color);
+        }
+
+        .section {
+            padding: 4rem 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .book-container {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            border-radius: 4px;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .book-info {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .book-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: #fff;
+        }
+
+        .book-info p {
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        .book-image-wrapper {
+            flex: 1;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .poems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .poem-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 1.8rem;
+            border-radius: 4px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .poem-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-color);
+        }
+
+        .poem-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            color: #fff;
+        }
+
+        .poem-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+            white-space: pre-line;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 5%;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        /* Estricto orden vertical y minimalista para móviles */
+        @media (max-width: 768px) {
+            header {
+                padding: 0.6rem 3%;
+            }
+
+            .logo {
+                font-size: 0.7rem;
+                letter-spacing: 0.5px;
+            }
+
+            nav {
+                gap: 0.8rem;
+            }
+
+            nav a {
+                font-size: 0.75rem;
+            }
+
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 5rem;
+                gap: 1.8rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .book-container {
+                padding: 1.2rem;
+                text-align: center;
+            }
+
+            .riddle-input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">DANIEL GARCÍA MARCOS</a>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#obra">Próximamente</a>
+            <a href="#poemas">Poesía</a>
+        </nav>
+    </header>
+
+    <!-- SECCIÓN INICIO / HERO CON ACERTIJO Y CAJA MISTERIOSA -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Versos que habitan la memoria</h1>
+            <p>Poesía contemporánea, introspección y refugio para los silencios compartidos.</p>
+            
+            <!-- Contenedor del Acertijo -->
+            <div id="riddle-container" class="riddle-box">
+                <p style="color: var(--text-muted); font-size: 0.85rem; font-style: italic; line-height: 1.5;">
+                    "Trazada en silencio sobre el muro del tiempo, divido la sombra y la luz sin manchar las manos. ¿Qué soy?"
+                </p>
+                <div class="riddle-input-group">
+                    <input type="text" id="riddle-input" placeholder="Resuelve el acertijo..." autocomplete="off">
+                    <button id="riddle-btn" class="btn" style="padding: 0.7rem 1.2rem;">Descubrir</button>
+                </div>
+                <p id="riddle-hint" style="color: var(--text-muted); font-size: 0.75rem; margin-top: 0.5rem; display: none;">Pista: Tres letras blancas que separan los mundos en el título...</p>
+            </div>
+
+            <!-- Mensaje de éxito -->
+            <div id="success-message" style="display: none; margin-top: 1rem;">
+                <p style="color: var(--accent-color); font-size: 0.85rem; letter-spacing: 0.5px;">✨ ¡Acertaste! El misterio ha sido revelado.</p>
+            </div>
+        </div>
+
+        <div class="hero-image" id="hero-image-container">
+            <div class="mystery-cover" id="mystery-box">
+                <span>?</span>
+                <p>Próximamente</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN OBRA -->
+    <section id="obra" class="section">
+        <h2 class="section-title">Últimas Publicaciones</h2>
+        <div class="book-container">
+            <div class="book-info">
+                <h3>Reflejos Rotos</h3>
+                <p>Un recorrido por los fragmentos del tiempo, la distancia y las verdades que solo se descubren al mirar hacia adentro. Haz clic en la portada para adquirirlo en Amazon.</p>
+            </div>
+            <div class="book-image-wrapper">
+                <a href="https://www.amazon.es/Reflejos-Rotos-Daniel-G%C3%A1rcia-Marcos/dp/B0FJ2C2VRQ?__mk_es_ES=%C5%85%C5%81%C3%95%C3%91&crid=1U4L3FONRPR2&dib=eyJ2IjoiMSJ9.7N3-8khSkZHLXjaOkGXgc7LS6u_u4Lmxudk-IxAEqzrPZ0HQpoL2AeGiEb2B0ZYBigxabaFHduo2K1UtxUAt3c6cHvF0iD3xLw3WeiZr1xFQ3rJgZCshIydrXmgyRLB2nns7MTs6WDL9sxdlXAJy97BKBvr2QnQS6S5kbPr8aYzya7ZyDwcZwe-BIJ2mzZHnlAz2lKh-w3U3alGGHLBDlZlht50o4cw6wZp1x40E5_AOPpCHVUR5L_YEf7TItiyXRCcwkzvXR6IHXb-1XEzWDqveIY80zJY8T5ky2lJy5_4.YzfPis4GpPqqk41qIpkWpM6GcOFomsFJW-idalTAtWk&dib_tag=se&keywords=reflejos+rotos&qid=1792867885&sprefix=reflejos+rotos%2Caps%2C229&sr=8-1" target="_blank" rel="noopener noreferrer" class="book-link">
+                    <img src="reflejos-rotos.jpeg" alt="Comprar Reflejos Rotos en Amazon">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN MUESTRAS POÉTICAS -->
+    <section id="poemas" class="section">
+        <h2 class="section-title">Muestras Poéticas</h2>
+        <div class="poems-grid">
+            <div class="poem-card">
+                <div>
+                    <h3>I. Fiebre sin fiebre</h3>
+                    <p>Tengo fiebre
+pero el termómetro no lo sabe.
+Solo lo sabe mi piel
+cuando escucho tu nombre.</p>
+                </div>
+                <span style="display: block; margin-top: 1.2rem; font-size: 0.75rem; color: var(--accent-color);">— D.G.M.</span>
+            </div>
+            <div class="poem-card">
+                <div>
+                    <h3>II. Nos desnudamos poco a poco</h3>
+                    <p>Nos desnudamos
+Poco a poco.
+
+Primero la risa.
+Después los miedos.
+Más tarde, las palabras que nos protegían
+del temblor.</p>
+                </div>
+                <span style="display: block; margin-top: 1.2rem; font-size: 0.75rem; color: var(--accent-color);">— D.G.M.</span>
+            </div>
+            <div class="poem-card">
+                <div>
+                    <h3>III. Distancia de contacto</h3>
+                    <p>Estás cerca.
+Lo suficiente para olerte.
+Para sentir el calor que dejas
+cuando respiras.
+
+Pero no me tocas</p>
+                </div>
+                <span style="display: block; margin-top: 1.2rem; font-size: 0.75rem; color: var(--accent-color);">— D.G.M.</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Daniel García Marcos. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- SCRIPT JAVASCRIPT PARA LA LÓGICA DEL ACERTIJO Y CONTROL DE INTENTOS -->
+    <script>
+        const riddleInput = document.getElementById('riddle-input');
+        const riddleBtn = document.getElementById('riddle-btn');
+        const heroImageContainer = document.getElementById('hero-image-container');
+        const riddleContainer = document.getElementById('riddle-container');
+        const successMsg = document.getElementById('success-message');
+        const riddleHint = document.getElementById('riddle-hint');
+
+        let attempts = 0;
+
+        function checkRiddle() {
+            const answer = riddleInput.value.trim().toLowerCase();
+            if (answer === 'cal' || answer === 'línea de cal' || answer === 'linea de cal') {
+                heroImageContainer.innerHTML = `
+                    <img src="1000106622.jpeg" alt="Línea de cal - Portada Revelada" class="revealed-image">
+                `;
+                riddleContainer.style.display = 'none';
+                successMsg.style.display = 'block';
+            } else {
+                attempts++;
+                // La pista solo aparece tras al menos 4 intentos fallidos
+                if (attempts >= 4) {
+                    riddleHint.style.display = 'block';
+                }
+                riddleInput.style.borderColor = '#d9534f';
+                setTimeout(() => {
+                    riddleInput.style.borderColor = 'var(--border-color)';
+                }, 1000);
+            }
+        }
+
+        riddleBtn.addEventListener('click', checkRiddle);
+        riddleInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkRiddle();
+            }
+        });
+    </script>
+
+</body>
+</html>
